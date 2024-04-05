@@ -1,0 +1,43 @@
+// primary
+$bright-blue: #3a7bfd;
+$check-bg: linear-gradient #57ddff to #c058f3;
+
+// light theme
+$l-light-gray: #fafafa;
+$l-very-light-grayish-blue: #e4e5f1;
+$l-light-grayish-blue: #d2d3db;
+$l-dark-grayish-blue: #9394a5;
+$l-very-dark-grayish-blue: #484b6a;
+
+// dark theme
+$d-dark-blue: #161722;
+$d-dark-desaturated-blue: #25273c;
+$d-light-grayish-blue: #cacde8;
+//hover
+$d-light-grayish-blue-hv: #e4e5f1;
+$d-dark-grayish-blue: #777a92;
+$d-very-dark-grayish-blue: #4d5066;
+$d-very-dark-grayish-blue-2: #393a4c;
+
+html {
+  font-size: 62.5%;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Josefin Sans", sans-serif;
+}
+
+body {
+  width: 100%;
+  min-height: 100vh;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
