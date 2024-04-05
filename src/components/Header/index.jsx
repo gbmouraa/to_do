@@ -1,5 +1,5 @@
-import iconMoon from "../../assets/images/icon-moon.svg";
-import iconSun from "../../assets/images/icon-sun.svg";
+import iconMoon from "../../assets/icons/icon-moon.svg";
+import iconSun from "../../assets/icons/icon-sun.svg";
 import { useContext } from "react";
 import { AppContext } from "../../appContext";
 import "./header.scss";
