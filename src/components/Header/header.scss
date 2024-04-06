@@ -1,14 +1,16 @@
 header {
   width: 100%;
-  padding: 4.6rem 2rem 0 2.4rem;
+  padding: 4.6rem 2rem 0 2rem;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  height: 20rem;
+  height: 23rem;
 
   .header-content {
     display: flex;
     justify-content: space-between;
+    max-width: 53rem;
+    margin: auto;
 
     .title {
       font-size: 2.6rem;
@@ -31,4 +33,31 @@ header.light {
 
 header.dark {
   background-image: url("https://res.cloudinary.com/difaohc9b/image/upload/v1712274170/projeto_todo/bg-mobile-dark_tl7bvi.jpg");
+}
+
+@media (width >= 600px) {
+  header {
+    height: 30rem;
+    padding: 8rem 0 0;
+
+    .header-content {
+      .title {
+        font-size: 3rem;
+      }
+
+      .btn-toggle-theme {
+        img {
+          width: 2.6rem;
+        }
+      }
+    }
+  }
+
+  header.light {
+    background-image: url("https://res.cloudinary.com/difaohc9b/image/upload/v1712274170/projeto_todo/bg-desktop-light_gj92w7.jpg");
+  }
+
+  header.dark {
+    background-image: url("https://res.cloudinary.com/difaohc9b/image/upload/v1712274170/projeto_todo/bg-desktop-dark_f1j0ft.jpg");
+  }
 }

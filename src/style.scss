@@ -30,9 +30,17 @@ html {
   font-family: "Josefin Sans", sans-serif;
 }
 
-body {
+body .app-container {
   width: 100%;
   min-height: 100vh;
+}
+
+.app-container.light {
+  background-color: $l-very-light-grayish-blue;
+}
+
+.app-container.dark {
+  background-color: $d-dark-blue;
 }
 
 button {

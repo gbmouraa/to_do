@@ -1,0 +1,63 @@
+@import "../../style";
+
+.todo-wrapper {
+  padding: 0 2rem;
+  transform: translateY(-12.4rem);
+  max-width: 53rem;
+  margin: auto;
+
+  .input-wrapper {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background-color: $l-light-gray;
+    height: 5.4rem;
+    border-radius: 0.6rem;
+    column-gap: 1.6rem;
+    padding: 0 2rem;
+
+    .btn-add {
+      width: 2.4rem;
+      height: 2.4rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      border: solid 0.1rem $l-light-grayish-blue;
+      transition: all 0.3s ease;
+
+      img {
+        width: 2rem;
+        opacity: 0;
+        transition: all 0.3s ease;
+      }
+
+      &:hover {
+        border-color: #f071df;
+
+        img {
+          opacity: 1;
+        }
+      }
+    }
+
+    input {
+      border: none;
+      flex: 1;
+      outline: none;
+      font-size: 1.6rem;
+      background-color: transparent;
+      color: $l-very-dark-grayish-blue;
+
+      &::placeholder {
+        color: $l-dark-grayish-blue;
+      }
+    }
+  }
+}
+
+@media (width >= 600px) {
+  .todo-wrapper {
+    padding: 0;
+  }
+}
