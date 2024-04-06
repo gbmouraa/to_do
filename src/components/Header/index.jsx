@@ -5,18 +5,24 @@ import { AppContext } from "../../appContext";
 import "./header.scss";
 
 export default function Header() {
-  const { theme, setTheme } = useContext(AppContext);
+  const { appStorage, setAppStorage } = useContext(AppContext);
 
   function toggleTheme() {
-    setTheme((prev) => (prev === "light" ? "dark" : "light"));
+    let newAppStorage = { ...appStorage };
+    newAppStorage.theme = appStorage.theme === "light" ? "dark" : "light";
+    setAppStorage(newAppStorage);
+    localStorage.setItem("_todo", JSON.stringify(newAppStorage));
   }
 
   return (
-    <header className={theme}>
+    <header className={appStorage.theme}>
       <div className="header-content">
         <span className="title">TODO</span>
         <button className="btn-toggle-theme" onClick={toggleTheme}>
-          <img src={theme === "light" ? iconMoon : iconSun} alt="Icon" />
+          <img
+            src={appStorage.theme === "light" ? iconMoon : iconSun}
+            alt="Icon"
+          />
         </button>
       </div>
     </header>

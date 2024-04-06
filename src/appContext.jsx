@@ -1,13 +1,25 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
 export const AppContext = createContext({});
 
 export function AppContextProvider({ children }) {
-  const [theme, setTheme] = useState("light");
-  const [tasks, setTasks] = useState([]);
+  const [appStorage, setAppStorage] = useState({ theme: "light", tasks: [] });
+
+  useEffect(() => {
+    function getAppStorage() {
+      const app = localStorage.getItem("_todo");
+
+      if (!app) return;
+
+      const appData = JSON.parse(app);
+      setAppStorage(appData);
+    }
+
+    getAppStorage();
+  }, []);
 
   return (
-    <AppContext.Provider value={{ theme, setTheme, tasks, setTasks }}>
+    <AppContext.Provider value={{ appStorage, setAppStorage }}>
       {children}
     </AppContext.Provider>
   );
