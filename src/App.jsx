@@ -4,10 +4,10 @@ import Header from "./components/Header";
 import Todo from "./components/Todo";
 
 export default function App() {
-  const { appStorage } = useContext(AppContext);
+  const { theme } = useContext(AppContext);
 
   return (
-    <div className={`app-container ${appStorage.theme}`}>
+    <div className={`app-container ${theme}`}>
       <Header />
       <Todo />
     </div>
