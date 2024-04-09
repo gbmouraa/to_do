@@ -1,0 +1,56 @@
+@import "../../style.scss";
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  padding: 0 2rem;
+  background-color: $l-light-gray;
+  border-radius: 0 0 0.4rem 0.4rem;
+  height: 6rem;
+  width: 100%;
+
+  span,
+  .btn-clear {
+    font-size: 1.4rem;
+    color: $l-dark-grayish-blue;
+    font-weight: 500;
+  }
+
+  .navigation {
+    position: absolute;
+    bottom: -8rem;
+    left: 0;
+    background-color: $l-light-gray;
+    width: inherit;
+    border-radius: 0.4rem;
+    height: 6rem;
+    display: flex;
+    justify-content: center;
+    column-gap: 2.2rem;
+
+    button {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: $l-dark-grayish-blue;
+    }
+  }
+}
+
+nav.dark {
+  background-color: $d-dark-desaturated-blue;
+
+  .navigation {
+    background-color: $d-dark-desaturated-blue;
+  }
+}
+
+@media (width >= 530px) {
+  nav {
+    .navigation {
+      position: static;
+      width: fit-content;
+    }
+  }
+}
