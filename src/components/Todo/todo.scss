@@ -73,7 +73,7 @@
   }
 
   .todo-wrapper {
-    border-radius: 0.4rem;
+    border-radius: 0.4rem 0.4rem 0 0;
     overflow: hidden;
     background-color: $l-light-gray;
 
@@ -94,12 +94,6 @@
 
       span {
         flex: 1;
-      }
-
-      &:hover {
-        .btn-delete {
-          opacity: 1;
-        }
       }
     }
 
@@ -135,11 +129,6 @@
         border-color: #f071dfde;
       }
     }
-
-    .btn-delete {
-      opacity: 0;
-      transition: all 0.3s ease;
-    }
   }
 
   .todo-wrapper.dark {
@@ -165,3 +154,5 @@
     padding: 0;
   }
 }
+
+// box-shadow: rgba(17, 17, 26, 0.05) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;

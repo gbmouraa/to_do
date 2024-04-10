@@ -34,6 +34,11 @@ nav {
       font-size: 1.6rem;
       font-weight: 700;
       color: $l-dark-grayish-blue;
+      transition: all 0.3s ease;
+    }
+
+    button.active {
+      color: $bright-blue;
     }
   }
 }
