@@ -1,13 +1,15 @@
 import { useContext, useRef } from "react";
 import { AppContext } from "../../appContext";
 import { Reorder } from "framer-motion";
+import Nav from "../Nav";
 import iconAdd from "../../assets/icons/icon-add.svg";
 import iconCheck from "../../assets/icons/icon-check.svg";
 import iconCross from "../../assets/icons/icon-cross.svg";
 import "./todo.scss";
 
 export default function Todo() {
-  const { theme, tasks, setTasks } = useContext(AppContext);
+  const { theme, tasks, setTasks, filteredTasks, setFilteredTasks } =
+    useContext(AppContext);
   const appStorage = JSON.parse(localStorage.getItem("_todo"));
 
   const inputRef = useRef(null);
@@ -29,6 +31,7 @@ export default function Todo() {
     }
 
     setTasks(newTaskList);
+    setFilteredTasks(newTaskList);
     appStorage.tasks = newTaskList;
 
     localStorage.setItem("_todo", JSON.stringify(appStorage));
@@ -54,6 +57,7 @@ export default function Todo() {
   function handleDelete(taskID) {
     let filteredTasks = tasks.filter((item) => item.id !== taskID);
     setTasks(filteredTasks);
+    setFilteredTasks(filteredTasks);
 
     appStorage.tasks = filteredTasks;
     localStorage.setItem("_todo", JSON.stringify(appStorage));
@@ -74,14 +78,15 @@ export default function Todo() {
       </div>
 
       <div className={`todo-wrapper ${theme}`}>
-        {tasks && (
+        {/* tasks to show */}
+        {filteredTasks && (
           <Reorder.Group
             axis="y"
-            values={tasks}
-            onReorder={setTasks}
+            values={filteredTasks}
+            onReorder={setFilteredTasks}
             className="todos"
           >
-            {tasks.map((item) => (
+            {filteredTasks.map((item) => (
               <Reorder.Item
                 key={item.id}
                 value={item}
@@ -89,7 +94,7 @@ export default function Todo() {
               >
                 <button
                   className="btn-complete"
-                  onClickCapture={() => handleCompleted(item.id)}
+                  onClick={() => handleCompleted(item.id)}
                 >
                   <img src={iconCheck} alt="icon" />
                 </button>
@@ -105,6 +110,8 @@ export default function Todo() {
           </Reorder.Group>
         )}
       </div>
+
+      <Nav />
     </div>
   );
 }

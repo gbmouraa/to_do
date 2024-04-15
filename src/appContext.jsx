@@ -5,6 +5,9 @@ export const AppContext = createContext({});
 export function AppContextProvider({ children }) {
   const [theme, setTheme] = useState("light");
   const [tasks, setTasks] = useState([]);
+  // state para alternar entre tarefas incompletas, completas ou todas as tarefas
+  const [taskFilter, setTaskFilter] = useState("all");
+  const [filteredTasks, setFilteredTasks] = useState([]);
 
   useEffect(() => {
     function getAppStorage() {
@@ -22,13 +25,25 @@ export function AppContextProvider({ children }) {
 
       setTheme(appStorage.theme);
       setTasks(appStorage.tasks);
+      setFilteredTasks([...appStorage.tasks]);
     }
 
     getAppStorage();
   }, []);
 
   return (
-    <AppContext.Provider value={{ theme, setTheme, tasks, setTasks }}>
+    <AppContext.Provider
+      value={{
+        theme,
+        setTheme,
+        tasks,
+        setTasks,
+        taskFilter,
+        setTaskFilter,
+        filteredTasks,
+        setFilteredTasks,
+      }}
+    >
       {children}
     </AppContext.Provider>
   );

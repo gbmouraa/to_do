@@ -4,12 +4,35 @@ import { AppContext } from "../../appContext";
 import "./nav.scss";
 
 export default function Nav() {
-  const { theme, tasks, setTasks, tasksFiltered, setTasksFiltered } =
-    useContext(AppContext);
+  const {
+    theme,
+    tasks,
+    setTasks,
+    taskFilter,
+    setTaskFilter,
+    setFilteredTasks,
+  } = useContext(AppContext);
   const [itemsLeft, setItemsLeft] = useState(0);
 
   function handleFilteredTasks(filter) {
-    setTasksFiltered(filter);
+    setTaskFilter(filter);
+    let filteredTasks;
+
+    if (filter === "all") {
+      setFilteredTasks([...tasks]);
+      return;
+    }
+
+    if (filter === "active") {
+      filteredTasks = tasks.filter((item) => item.completed === false);
+      setFilteredTasks(filteredTasks);
+      return;
+    }
+
+    if (filter === "completed") {
+      filteredTasks = tasks.filter((item) => item.completed === true);
+      setFilteredTasks(filteredTasks);
+    }
   }
 
   useEffect(() => {
@@ -31,19 +54,19 @@ export default function Nav() {
       <span>{`${itemsLeft} items left`} </span>
       <div className="navigation">
         <button
-          className={tasksFiltered === "all" ? "active" : ""}
+          className={taskFilter === "all" ? "active" : ""}
           onClick={() => handleFilteredTasks("all")}
         >
           All
         </button>
         <button
-          className={tasksFiltered === "active" ? "active" : ""}
+          className={taskFilter === "active" ? "active" : ""}
           onClick={() => handleFilteredTasks("active")}
         >
           Active
         </button>
         <button
-          className={tasksFiltered === "completed" ? "active" : ""}
+          className={taskFilter === "completed" ? "active" : ""}
           onClick={() => handleFilteredTasks("completed")}
         >
           Completed
