@@ -78,7 +78,6 @@ export default function Todo() {
       </div>
 
       <div className={`todo-wrapper ${theme}`}>
-        {/* tasks to show */}
         {filteredTasks && (
           <Reorder.Group
             axis="y"

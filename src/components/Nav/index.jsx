@@ -49,6 +49,12 @@ export default function Nav() {
     getItemsLeft();
   }, [tasks, setTasks]);
 
+  function handleClearCompletedTasks() {
+    let filteredTasks = tasks.filter((item) => item.completed === false);
+    setTasks(filteredTasks);
+    setFilteredTasks(filteredTasks);
+  }
+
   return (
     <nav className={theme}>
       <span>{`${itemsLeft} items left`} </span>
@@ -72,7 +78,9 @@ export default function Nav() {
           Completed
         </button>
       </div>
-      <button className="btn-clear">Clear completed</button>
+      <button className="btn-clear" onClick={handleClearCompletedTasks}>
+        Clear completed
+      </button>
     </nav>
   );
 }
