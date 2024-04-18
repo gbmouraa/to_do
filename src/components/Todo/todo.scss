@@ -131,6 +131,15 @@
     }
   }
 
+  .todos-area {
+    border-radius: 0.4rem;
+    background-color: $l-light-gray;
+  }
+
+  .todos-area.dark {
+    background-color: $d-dark-desaturated-blue;
+  }
+
   .todo-wrapper.dark {
     background-color: $d-dark-desaturated-blue;
 

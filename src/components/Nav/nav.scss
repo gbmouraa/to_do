@@ -8,6 +8,7 @@ nav {
   padding: 0 2rem;
   background-color: $l-light-gray;
   border-radius: 0 0 0.4rem 0.4rem;
+  border-radius: 0.4rem;
   height: 6rem;
   width: 100%;
 
@@ -16,6 +17,14 @@ nav {
     font-size: 1.4rem;
     color: $l-dark-grayish-blue;
     font-weight: 500;
+  }
+
+  .btn-clear {
+    transition: all 0.3s ease;
+
+    &:hover {
+      color: $bright-blue;
+    }
   }
 
   .navigation {
