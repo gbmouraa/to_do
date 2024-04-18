@@ -8,11 +8,39 @@ import iconCross from "../../assets/icons/icon-cross.svg";
 import "./todo.scss";
 
 export default function Todo() {
-  const { theme, tasks, setTasks, filteredTasks, setFilteredTasks } =
-    useContext(AppContext);
+  const {
+    theme,
+    tasks,
+    setTasks,
+    filteredTasks,
+    setFilteredTasks,
+    taskFilter,
+    setTaskFilter,
+  } = useContext(AppContext);
   const appStorage = JSON.parse(localStorage.getItem("_todo"));
 
   const inputRef = useRef(null);
+
+  function handleFilteredTasks(filter) {
+    setTaskFilter(filter);
+    let filteredTasks;
+
+    if (filter === "all") {
+      setFilteredTasks([...tasks]);
+      return;
+    }
+
+    if (filter === "active") {
+      filteredTasks = tasks.filter((item) => item.completed === false);
+      setFilteredTasks(filteredTasks);
+      return;
+    }
+
+    if (filter === "completed") {
+      filteredTasks = tasks.filter((item) => item.completed === true);
+      setFilteredTasks(filteredTasks);
+    }
+  }
 
   function handleNewTask() {
     if (!inputRef.current.value.trim()) return;
@@ -32,6 +60,7 @@ export default function Todo() {
 
     setTasks(newTaskList);
     setFilteredTasks(newTaskList);
+    setTaskFilter("all");
     appStorage.tasks = newTaskList;
 
     localStorage.setItem("_todo", JSON.stringify(appStorage));
@@ -49,6 +78,12 @@ export default function Todo() {
       newTaskState[tasks.indexOf(currentTask)].completed = true;
     }
 
+    if (taskFilter === "completed") {
+      setFilteredTasks(() => {
+        return newTaskState.filter((item) => item.completed === true);
+      });
+    }
+
     setTasks(newTaskState);
     appStorage.tasks = newTaskState;
     localStorage.setItem("_todo", JSON.stringify(appStorage));
@@ -58,6 +93,12 @@ export default function Todo() {
     let filteredTasks = tasks.filter((item) => item.id !== taskID);
     setTasks(filteredTasks);
     setFilteredTasks(filteredTasks);
+
+    if (taskFilter === "completed") {
+      setFilteredTasks(() => {
+        return filteredTasks.filter((item) => item.completed === true);
+      });
+    }
 
     appStorage.tasks = filteredTasks;
     localStorage.setItem("_todo", JSON.stringify(appStorage));
@@ -77,40 +118,41 @@ export default function Todo() {
         />
       </div>
 
-      <div className={`todo-wrapper ${theme}`}>
-        {filteredTasks && (
-          <Reorder.Group
-            axis="y"
-            values={filteredTasks}
-            onReorder={setFilteredTasks}
-            className="todos"
-          >
-            {filteredTasks.map((item) => (
-              <Reorder.Item
-                key={item.id}
-                value={item}
-                className={`todo-item ${item.completed ? "completed" : ""}`}
-              >
-                <button
-                  className="btn-complete"
-                  onClick={() => handleCompleted(item.id)}
+      <div className={`todos-area ${theme}`}>
+        <div className={`todo-wrapper ${theme}`}>
+          {filteredTasks && (
+            <Reorder.Group
+              axis="y"
+              values={filteredTasks}
+              onReorder={setFilteredTasks}
+              className="todos"
+            >
+              {filteredTasks.map((item) => (
+                <Reorder.Item
+                  key={item.id}
+                  value={item}
+                  className={`todo-item ${item.completed ? "completed" : ""}`}
                 >
-                  <img src={iconCheck} alt="icon" />
-                </button>
-                <span>{item.content}</span>
-                <button
-                  className="btn-delete"
-                  onClick={() => handleDelete(item.id)}
-                >
-                  <img src={iconCross} alt="icon" />
-                </button>
-              </Reorder.Item>
-            ))}
-          </Reorder.Group>
-        )}
+                  <button
+                    className="btn-complete"
+                    onClick={() => handleCompleted(item.id)}
+                  >
+                    <img src={iconCheck} alt="icon" />
+                  </button>
+                  <span>{item.content}</span>
+                  <button
+                    className="btn-delete"
+                    onClick={() => handleDelete(item.id)}
+                  >
+                    <img src={iconCross} alt="icon" />
+                  </button>
+                </Reorder.Item>
+              ))}
+            </Reorder.Group>
+          )}
+        </div>
+        <Nav handleFilteredTasks={handleFilteredTasks} />
       </div>
-
-      <Nav />
     </div>
   );
 }

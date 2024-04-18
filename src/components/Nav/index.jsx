@@ -3,37 +3,10 @@ import { AppContext } from "../../appContext";
 
 import "./nav.scss";
 
-export default function Nav() {
-  const {
-    theme,
-    tasks,
-    setTasks,
-    taskFilter,
-    setTaskFilter,
-    setFilteredTasks,
-  } = useContext(AppContext);
+export default function Nav({ handleFilteredTasks }) {
+  const { theme, tasks, setTasks, taskFilter, setFilteredTasks } =
+    useContext(AppContext);
   const [itemsLeft, setItemsLeft] = useState(0);
-
-  function handleFilteredTasks(filter) {
-    setTaskFilter(filter);
-    let filteredTasks;
-
-    if (filter === "all") {
-      setFilteredTasks([...tasks]);
-      return;
-    }
-
-    if (filter === "active") {
-      filteredTasks = tasks.filter((item) => item.completed === false);
-      setFilteredTasks(filteredTasks);
-      return;
-    }
-
-    if (filter === "completed") {
-      filteredTasks = tasks.filter((item) => item.completed === true);
-      setFilteredTasks(filteredTasks);
-    }
-  }
 
   useEffect(() => {
     function getItemsLeft() {
@@ -52,7 +25,12 @@ export default function Nav() {
   function handleClearCompletedTasks() {
     let filteredTasks = tasks.filter((item) => item.completed === false);
     setTasks(filteredTasks);
-    setFilteredTasks(filteredTasks);
+
+    if (taskFilter === "completed") {
+      setFilteredTasks([]);
+    } else {
+      setFilteredTasks(filteredTasks);
+    }
   }
 
   return (
