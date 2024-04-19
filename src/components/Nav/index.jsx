@@ -7,6 +7,7 @@ export default function Nav({ handleFilteredTasks }) {
   const { theme, tasks, setTasks, taskFilter, setFilteredTasks } =
     useContext(AppContext);
   const [itemsLeft, setItemsLeft] = useState(0);
+  const appStorage = JSON.parse(localStorage.getItem("_todo"));
 
   useEffect(() => {
     function getItemsLeft() {
@@ -25,6 +26,8 @@ export default function Nav({ handleFilteredTasks }) {
   function handleClearCompletedTasks() {
     let filteredTasks = tasks.filter((item) => item.completed === false);
     setTasks(filteredTasks);
+    appStorage.tasks = filteredTasks;
+    localStorage.setItem("_todo", JSON.stringify(appStorage));
 
     if (taskFilter === "completed") {
       setFilteredTasks([]);
