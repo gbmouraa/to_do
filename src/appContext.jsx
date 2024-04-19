@@ -3,6 +3,13 @@ import { createContext, useState, useEffect } from "react";
 export const AppContext = createContext({});
 
 export function AppContextProvider({ children }) {
+  const [appStorage, setAppStorage] = useState(
+    () =>
+      JSON.parse(localStorage.getItem("_todo")) || {
+        theme: "light",
+        tasks: [],
+      }
+  );
   const [theme, setTheme] = useState("light");
   const [tasks, setTasks] = useState([]);
   // state para alternar entre tarefas incompletas, completas ou todas as tarefas
@@ -11,15 +18,10 @@ export function AppContextProvider({ children }) {
 
   useEffect(() => {
     function getAppStorage() {
-      const appStorage = JSON.parse(localStorage.getItem("_todo"));
+      const storageData = JSON.parse(localStorage.getItem("_todo"));
 
-      if (!appStorage) {
-        let data = {
-          theme: "light",
-          tasks: [],
-        };
-
-        localStorage.setItem("_todo", JSON.stringify(data));
+      if (!storageData) {
+        localStorage.setItem("_todo", JSON.stringify(appStorage));
         return;
       }
 
@@ -34,6 +36,8 @@ export function AppContextProvider({ children }) {
   return (
     <AppContext.Provider
       value={{
+        appStorage,
+        setAppStorage,
         theme,
         setTheme,
         tasks,

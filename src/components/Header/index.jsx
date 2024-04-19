@@ -5,13 +5,16 @@ import { AppContext } from "../../appContext";
 import "./header.scss";
 
 export default function Header() {
-  const { theme, setTheme } = useContext(AppContext);
-  const appStorage = JSON.parse(localStorage.getItem("_todo"));
+  const { appStorage, setAppStorage, theme, setTheme } = useContext(AppContext);
 
   function toggleTheme(theme) {
     setTheme(theme);
-    appStorage.theme = theme;
-    localStorage.setItem("_todo", JSON.stringify(appStorage));
+
+    let data = { ...appStorage };
+    data.theme = theme;
+
+    setAppStorage(data);
+    localStorage.setItem("_todo", JSON.stringify(data));
   }
 
   return (

@@ -9,6 +9,8 @@ import "./todo.scss";
 
 export default function Todo() {
   const {
+    appStorage,
+    setAppStorage,
     theme,
     tasks,
     setTasks,
@@ -17,7 +19,6 @@ export default function Todo() {
     taskFilter,
     setTaskFilter,
   } = useContext(AppContext);
-  const appStorage = JSON.parse(localStorage.getItem("_todo"));
 
   const inputRef = useRef(null);
 
@@ -61,9 +62,12 @@ export default function Todo() {
     setTasks(newTaskList);
     setFilteredTasks(newTaskList);
     setTaskFilter("all");
-    appStorage.tasks = newTaskList;
 
-    localStorage.setItem("_todo", JSON.stringify(appStorage));
+    let data = { ...appStorage };
+    data.tasks = newTaskList;
+
+    setAppStorage(data);
+    localStorage.setItem("_todo", JSON.stringify(data));
 
     inputRef.current.value = "";
   }
@@ -84,9 +88,12 @@ export default function Todo() {
       });
     }
 
+    let data = { ...appStorage };
+    data.tasks = newTaskState;
+
     setTasks(newTaskState);
-    appStorage.tasks = newTaskState;
-    localStorage.setItem("_todo", JSON.stringify(appStorage));
+    setAppStorage(data);
+    localStorage.setItem("_todo", JSON.stringify(data));
   }
 
   function handleDelete(taskID) {
@@ -100,8 +107,11 @@ export default function Todo() {
       });
     }
 
-    appStorage.tasks = filteredTasks;
-    localStorage.setItem("_todo", JSON.stringify(appStorage));
+    let data = { ...appStorage };
+    data.tasks = filteredTasks;
+
+    setAppStorage(data);
+    localStorage.setItem("_todo", JSON.stringify(data));
   }
 
   return (
