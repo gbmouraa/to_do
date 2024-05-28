@@ -43,7 +43,9 @@ export default function Todo() {
     }
   }
 
-  function handleNewTask() {
+  function handleNewTask(event) {
+    event.preventDefault();
+
     if (!inputRef.current.value.trim()) return;
 
     let newTask = {
@@ -53,6 +55,7 @@ export default function Todo() {
     };
 
     let newTaskList = [];
+
     if (Boolean(tasks) === false) {
       newTaskList.push(newTask);
     } else {
@@ -64,8 +67,8 @@ export default function Todo() {
     setTaskFilter("all");
 
     let data = { ...appStorage };
-    data.tasks = newTaskList;
 
+    data.tasks = newTaskList;
     setAppStorage(data);
     localStorage.setItem("_todo", JSON.stringify(data));
 
@@ -116,8 +119,8 @@ export default function Todo() {
 
   return (
     <div className="todo-container">
-      <div className={`input-wrapper ${theme}`}>
-        <button className="btn-add" onClick={handleNewTask}>
+      <form className={`input-wrapper ${theme}`} onSubmit={handleNewTask}>
+        <button className="btn-add" type="submit">
           <img src={iconAdd} alt="icon" />
         </button>
         <input
@@ -126,7 +129,7 @@ export default function Todo() {
           placeholder="Create a new todo..."
           ref={inputRef}
         />
-      </div>
+      </form>
 
       <div className={`todos-area ${theme}`}>
         <div className={`todo-wrapper ${theme}`}>
